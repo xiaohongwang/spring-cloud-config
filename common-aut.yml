@@ -1,1 +1,19 @@
-common-environment: dev
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+
+datasource1:
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://127.0.0.1:3306/springboottest
+  username: root
+  password: 123
+  type: com.alibaba.druid.pool.DruidDataSource
+datasource2:
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://127.0.0.1:3306/springboot
+  username: root
+  password: 123
+  type: com.alibaba.druid.pool.DruidDataSource
