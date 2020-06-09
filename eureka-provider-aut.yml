@@ -1,1 +1,3 @@
-eureka-provider-environment: aut
+server:
+  port: 8010
+words: eureka-provider-aut
