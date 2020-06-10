@@ -5,15 +5,43 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8000/eureka/
 
-datasource1:
-  driver-class-name: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://127.0.0.1:3306/springboottest
-  username: root
-  password: 123
-  type: com.alibaba.druid.pool.DruidDataSource
-datasource2:
-  driver-class-name: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://127.0.0.1:3306/springboot
-  username: root
-  password: 123
-  type: com.alibaba.druid.pool.DruidDataSource
+spring:
+    datasource:
+        # druid数据源配有成套的数据源管理软件 https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter
+        type: com.alibaba.druid.pool.DruidDataSource
+        druid:
+          # JDBC 基本配置
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/springboottest?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull
+          username: root
+          password: 123
+          # 连接池其他配置
+          remove-abandoned-timeout: 7200
+          # 初始连接数
+          initial-size: 10
+          # 最大连接数
+          max-active: 100
+          min-idle: 10
+          max-wait: 60000
+          pool-prepared-statements: true
+          max-pool-prepared-statement-per-connection-size: 20
+          time-between-eviction-runs-millis: 60000
+          min-evictable-idle-time-millis: 300000
+          validation-query: SELECT 1 FROM DUAL
+          test-while-idle: true
+          test-on-borrow: false
+          test-on-return: false
+          stat-view-servlet:
+              enabled: true
+              url-pattern: /druid/*
+  #           配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+          filter:
+              stat:
+                  log-slow-sql: true
+                  slow-sql-millis: 1000
+                  merge-sql: false
+              wall:
+                  config:
+                      multi-statement-allow: true
+        filters: stat,wall,log4j
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
